@@ -1,0 +1,29 @@
+create table Student ( sid INT not null, name CHAR(30) not null, birthPlace CHAR(30), did INT not null, primary key (sid) );
+create table Take ( sid INT , cid INT, name CHAR(30), grade INT,foreign key (sid) references Student(sid),foreign key (cid) references Course(cid),primary key (sid,cid) );
+create table Course(cid INT not null,title CHAR(30),credits INT,did INT,primary key (cid));
+create table Department(did INT,name CHAR(30),primary key (did));
+create table Teacher(tid INT,name CHAR(30),placeOfBirth CHAR(30),did INT,foreign key (did) references Department(did),primary key (tid) );
+create table Teach(tid INT,cid INT,foreign key (tid)references Teacher(tid), foreign key (cid) references Course(cid), primary key(tid,cid));
+
+
+
+
+
+2-) select cid, COUNT(sid) from take t group by cid HAVING AVG(grade)>50;
+
+
+3-)select DISTINCT s.* from student s, take t, course c where s.sid=t.sid and t.cid=c.cid AND t.grade>ALL(select a.grade from take a, student o where a.sid=o.sid and o.name='Ali Kurt');
+
+4-)SELECT k.* FROM student k WHERE k.sid IN (SELECT s.sid FROM student s, take t, course c WHERE c.cid=t.cid AND s.sid=t.sid AND c.title='Database Systems') AND k.sid NOT in(SELECT s.sid FROM student s, take t, course c WHERE c.cid=t.cid AND s.sid=t.sid AND c.title='Operating System');
+
+5-)a) SELECT * FROM teacher  WHERE NOT EXISTS(SELECT *  FROM teach,department d WHERE teach.tid=teacher.tid and  d.did=teacher.did)
+   b) SELECT * FROM teacher WHERE tid NOT IN (SELECT tid  FROM teach,department WHERE teach.tid=teacher.tid and  department.did=teacher.did);
+
+
+
+
+
+
+
+
+

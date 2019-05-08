@@ -1,0 +1,17 @@
+
+
+açýlýþ
+
+C:\xampp\mysql\bin
+shift+right click power shell
+cmd
+mysql -u root -p
+CREATE DATABASE dbname;
+USE dbname;
+
+
+•Mysql’de yazdýðýnýz tüm komutlarý ve bu komutlarýný cevap/çýktýlarýný 
+odev1.sql diye bir metin dosyasýna kaydetmeye baþlamak için ‘TEE odev1.sql;’ 
+komutunu yazýp Enter’a basýnýz. (Bundan sonra mysql’de yazdýðýnýz tüm komutlar ve 
+o komutlarýn ekranda görülen çýktýlarý otomatik olarak odev1.sql metin dosyasýnýn 
+için mysql client’ý tarafýndan saklanacaktýr.) 

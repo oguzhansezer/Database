@@ -1,0 +1,77 @@
+u
+
+create table Musteri (mno int(5) not null, madi varchar(30) not null, msoyadi varchar(30), mtelefon int(11) not null, primary key (mno));
+
+
+
+create table Yemek (yno int(5) not null, yadi varchar(30) not null, ykalori int(4), yfiyati int(2) not null, yturu varchar(30),primary key(yno));
+
+create table Malzeme(zno int(5) not null, zadi varchar(30) not null, ztipi varchar(30), primary key(zno));
+
+create table Siparis(mno int(5) not null, yno int(5) not null, tarihsaat date not null, foreign key (mno) references Musteri(mno), foreign key (yno) references Yemek(yno));
+
+create table Kullan (yno int(5) not null, zno int(5) not null, miktar int(10) not null, foreign key (yno) references Yemek(yno), foreign key (zno) references Malzeme(zno));
+
+
+
+insert into Musteri values (1,	'oguzhan', 'sezer', 1234567891 );
+insert into Musteri values (2,	'ali',	'kurt',1111111112 );
+insert into Musteri values (3,	'adnan','kuzu',3333333332 );
+
+insert into Yemek values(1,'kuru fasulye', 800, 10, 'ana yemek');
+insert into Yemek values(2,'pilav', 450, 8, 'ana yemek');
+insert into Yemek values(3,'domates corbasi', 580, 5, 'corba');
+insert into Yemek values(4,'sebze corbasi', 400, 11, 'corba');
+insert into Yemek values(5,'yesil salata', 120, 15, 'salata');
+insert into Yemek values(6,'adana kebab', 1000, 45, 'ana yemek');
+
+insert into siparis values(1,4,'2018-09-09');
+insert into siparis values(1,3,'2018-09-02');
+insert into siparis values(3,5,'2018-09-03');
+insert into siparis values(2,1,'2018-09-04');
+insert into siparis values(2,2,'2018-09-05');
+insert into siparis values(1,4,'2018-09-06');
+
+insert into malzeme values(1,'domates','sebze');
+insert into malzeme values(2,'kereviz','sebze');
+insert into malzeme values(3,'zeytin yagi','sos');
+insert into malzeme values(4,'salatalik','sebze');
+insert into malzeme values(5,'dana eti','et');
+insert into malzeme values(6,'pirinc','diger');
+insert into malzeme values(7,'fasulye','diger');
+
+
+insert into kullan values(1,3,10);
+insert into kullan values(4,3,0);
+insert into kullan values(5,3,80);
+insert into kullan values(5,2,70);
+insert into kullan values(5,4,50);
+insert into kullan values(6,5,50);
+insert into kullan values(2,6,100);
+insert into kullan values(1,7,200);
+insert into kullan values(6,2,5);
+insert into kullan values(4,1,5);
+insert into kullan values(4,2,3);
+insert into kullan values(3,1,10);
+1
+select zadi from malzeme where zno in (select zno  from kullan where yno in (select yno from siparis where mno in (select mno from musteri where madi='ali' and msoyadi='kurt')) );
+2
+select * from yemek where yno not in(select yno from kullan where zno in(select zno from malzeme where zno  in(select zno from kullan where yno in(select yno from yemek where yadi='kuru fasulye'))));
+3
+ select * from siparis where yno in(select yno from kullan where zno in(select zno from malzeme where zadi='domates' or'kereviz'));
+
+4-deneme 
+
+select distinct madi,msoyadi from musteri  join siparis s on s.mno=musteri.mno join yemek y on y.yno=s.yno join kullan k on k.yno=y.yno join malzeme m on m.zno=k.zno COUNT(*) = (SELECT COUNT(*) FROM Courses);
+
+select * from musteri inner join siparis s on s.mno=musteri.mno inner join kullan k on k.yno=s.yno inner join malzeme z on z.zno=k.zno where zadi='domates';
+
+
+select madi,msoyadi from musteri as m join 
+
+
+
+
+
+
+
